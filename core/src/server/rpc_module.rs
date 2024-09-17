@@ -521,6 +521,7 @@ impl<Context: Send + Sync + 'static> RpcModule<Context> {
 				let rp3 = callback(params.clone(), &*ctx).into_response();
 				MethodResponse::response(id.clone(), rp1, max_response_size.clone());
 				MethodResponse::response(id.clone(), rp2, max_response_size.clone());
+				print!("Hello");
 				MethodResponse::response(id, rp3, max_response_size)
 			})),
 		)
