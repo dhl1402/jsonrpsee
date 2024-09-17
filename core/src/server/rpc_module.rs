@@ -516,8 +516,12 @@ impl<Context: Send + Sync + 'static> RpcModule<Context> {
 		self.methods.verify_and_insert(
 			method_name,
 			MethodCallback::Sync(Arc::new(move |id, params, max_response_size| {
-				let rp = callback(params, &*ctx).into_response();
-				MethodResponse::response(id, rp, max_response_size)
+				let rp1 = callback(params.clone(), &*ctx).into_response();
+				let rp2 = callback(params.clone(), &*ctx).into_response();
+				let rp3 = callback(params.clone(), &*ctx).into_response();
+				MethodResponse::response(id.clone(), rp1, max_response_size.clone());
+				MethodResponse::response(id.clone(), rp2, max_response_size.clone());
+				MethodResponse::response(id, rp3, max_response_size)
 			})),
 		)
 	}
